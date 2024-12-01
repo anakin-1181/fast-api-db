@@ -1,1 +1,3 @@
-# fast-api-db
+# fast-api-dbs
+
+## How to run?
