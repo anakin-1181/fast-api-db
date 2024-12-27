@@ -4,11 +4,8 @@
 
 ```
 pip install -r requirements.txt
-```
-
-```mermaid
-flowchart LR
-    a --> b[ucl] <--> c{test};
+fastapi dev main.py
+go to http://127.0.0.1:8000/docs to check all the apis
 ```
 
 ## Git commit hook
