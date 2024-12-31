@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fast_api_db.utils import abc
 
 # attempt to replace the output of read_message
 # from src.fast_api_db.main import read_message
@@ -12,4 +13,4 @@ app = FastAPI()
 # Overriding the imported function
 @app.get("/")
 def read_message():
-    return {"Merry": "Christmas"}
+    return {"Merry": "Christmas", "payload": abc()}
