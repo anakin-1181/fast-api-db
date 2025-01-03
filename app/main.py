@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 
-# attempt to replace the output of read_message
-# from src.fast_api_db.main import read_message
+import fast_api_db.main
 
 app = FastAPI()
 
@@ -13,3 +12,6 @@ app = FastAPI()
 @app.get("/")
 def read_message():
     return {"Merry": "Christmas"}
+
+
+print(fast_api_db.main.read_message())

@@ -1,11 +1,13 @@
 # fast-api-dbs
 
+## What to install
+
+```
+pip install -e .
+```
+
 ## How to run?
 
 ```
-pip install -r requirements.txt
-fastapi dev main.py
-go to http://127.0.0.1:8000/docs to check all the apis
+uvicorn app.main:app --reload
 ```
-
-## Git commit hook
