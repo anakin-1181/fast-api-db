@@ -1,17 +1,16 @@
 from fastapi import FastAPI
 
-import fast_api_db.main
+import fast_api_db.utils as utils
+
+# attempt to replace the output of read_message
+# from src.fast_api_db.main import read_message
 
 app = FastAPI()
 
-# Using the original function
-# app.get("/")(read_message)
 
-
-# Overriding the imported function
 @app.get("/")
-def read_message():
-    return {"Merry": "Christmas"}
+def utils_function():
+    return utils.dummy_function()
 
 
-print(fast_api_db.main.read_message())
+utils_function()
