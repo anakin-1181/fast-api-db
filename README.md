@@ -1,9 +1,15 @@
 # fast-api-dbs
 
-## What to install
+## Install using pip
 
 ```
 pip install -e .
+```
+
+## Install using poetry
+
+```
+poetry install
 ```
 
 ## How to run?
