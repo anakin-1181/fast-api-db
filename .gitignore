@@ -137,6 +137,9 @@ venv.bak/
 # Rope project settings
 .ropeproject
 
+# macOS system files
+.DS_Store
+
 # mkdocs documentation
 /site
 
