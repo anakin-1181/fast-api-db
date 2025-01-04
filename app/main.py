@@ -10,7 +10,4 @@ app = FastAPI()
 
 @app.get("/")
 def utils_function():
-    return utils.dummy_function()
-
-
-utils_function()
+    return {"message": utils.dummy_function}
