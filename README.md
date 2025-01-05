@@ -1,14 +1,23 @@
 # fast-api-dbs
 
+## Install using pip
+
+```
+pip install -e .
+```
+
+## Install using poetry
+
+```
+poetry install
+```
+
 ## How to run?
-
+for pip install
 ```
-pip install -r requirements.txt
+uvicorn app.main:app --reload
 ```
-
-```mermaid
-flowchart LR
-    a --> b[ucl] <--> c{test};
+for poetry
 ```
-
-## Git commit hook
+poetry run uvicorn app.main:app --reload
+```
