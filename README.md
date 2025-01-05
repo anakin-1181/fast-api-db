@@ -13,7 +13,11 @@ poetry install
 ```
 
 ## How to run?
-
+for pip install
 ```
 uvicorn app.main:app --reload
+```
+for poetry
+```
+poetry run uvicorn app.main:app --reload
 ```

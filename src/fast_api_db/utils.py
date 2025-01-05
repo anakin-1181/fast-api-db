@@ -1,2 +1,2 @@
 def dummy_function():
-    print("dummy function")
+    return "output from utils"
