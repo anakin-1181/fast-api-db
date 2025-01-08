@@ -11,6 +11,7 @@ python = "^3.11"
 fastapi = "^0.115.6"
 gunicorn = "^23.0.0"
 uvicorn = "^0.32.1"
+debugpy = "^1.8.11"
 
 
 

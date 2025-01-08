@@ -7,7 +7,7 @@
       "platform": "python",
       "dockerBuild": {
         "tag": "fastapidb:latest",
-        "dockerfile": "${workspaceFolder}/Dockerfile",
+        "dockerfile": "${workspaceFolder}/Dockerfile.poetry",
         "context": "${workspaceFolder}",
         "pull": true
       }
@@ -17,7 +17,7 @@
       "label": "docker-run: debug",
       "dependsOn": ["docker-build"],
       "python": {
-        "args": ["app.main:app", "--host", "0.0.0.0", "--port", "undefined"],
+        "args": ["app.main:app", "--host", "0.0.0.0", "--port", "8000"],
         "module": "uvicorn"
       }
     }

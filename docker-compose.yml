@@ -1,8 +1,8 @@
-version: '3.4'
-
 services:
   fastapidb:
-    image: fastapidb
+    image: fast-api-db-i-docker
     build:
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: ./Dockerfile.poetry
+    ports:
+      - "8000:8000"
