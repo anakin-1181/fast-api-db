@@ -1,37 +1,49 @@
-# For more information, please refer to https://aka.ms/vscode-docker-python
-FROM python:3.11-slim
+# Build Stage
+FROM python:3.11-slim AS builder
 
 # Keeps Python from generating .pyc files in the container
 ENV PYTHONDONTWRITEBYTECODE=1
-
 # Turns off buffering for easier container logging
 ENV PYTHONUNBUFFERED=1
-
 # Disable poetry virtual environment
 ENV POETRY_VIRTUALENVS_CREATE=false \
     POETRY_NO_INTERACTION=1
 
+RUN pip install poetry
+
 WORKDIR /app
 
 # Preserve structure for the last CMD statement
-COPY README.md pyproject.toml poetry.lock /app/
+COPY README.md pyproject.toml poetry.lock ./
 COPY src /app/src
-COPY app /app/app
 
-# OR just COPY . .
+RUN poetry config virtualenvs.create false && poetry install
 
-# Install pip requirements
-RUN pip install --upgrade pip
-RUN pip install poetry
-RUN poetry install
+COPY app ./app
 
-# Expose port 8000 for the FastAPI application
-EXPOSE 8000
+## Production Stage
+FROM python:3.11-slim
+
+# Keeps Python from generating .pyc files in the container
+ENV PYTHONDONTWRITEBYTECODE=1
+# Turns off buffering for easier container logging
+ENV PYTHONUNBUFFERED=1
+
+# Set work dir
+WORKDIR /app
 
 # Creates a non-root user with an explicit UID and adds permission to access the /app folder
 # For more info, please refer to https://aka.ms/vscode-docker-python-configure-containers
 RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
 USER appuser
 
+
+# Copy installed dependencies from builder
+COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=builder /app /app
+
+# Expose port that FastAPI runs on
+EXPOSE 8000
+
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
-CMD ["poetry", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]

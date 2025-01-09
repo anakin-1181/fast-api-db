@@ -1,8 +1,26 @@
 services:
-  fastapidb:
+  fastapidb-poetry:
+    profiles:
+      - poetry
     image: fast-api-db-i-docker
     build:
       context: .
       dockerfile: ./Dockerfile.poetry
+    volumes:
+      - ./app:/app/app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+
+  fastapidb-pip:
+    profiles:
+      - pip
+    image: fast-api-db-i-docker
+    build:
+      context: .
+      dockerfile: ./Dockerfile.pip
+    volumes:
+      - ./app:/app/app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     ports:
       - "8000:8000"
