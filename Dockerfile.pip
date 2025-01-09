@@ -12,7 +12,9 @@ WORKDIR /app
 # Install pip requirements
 RUN pip install --upgrade pip
 
-COPY setup.py setup.cfg requirements.txt README.md .eggs pyproject.toml poetry.lock src /app/
+COPY setup.py setup.cfg requirements.txt README.md .eggs pyproject.toml poetry.lock /app/
+COPY src ./src
+COPY app ./app
 
 RUN pip install -r requirements.txt
 RUN pip install -e .

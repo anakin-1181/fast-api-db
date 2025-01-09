@@ -11,3 +11,8 @@ app = FastAPI()
 @app.get("/")
 def utils_function():
     return {"message": utils.dummy_function()}
+
+
+@app.post("/abc/")
+def create_item(item: str):
+    return {f"New item {item} added."}
