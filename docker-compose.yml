@@ -9,8 +9,14 @@ services:
     volumes:
       - ./app:/app/app
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    depends_on:
+      - pgdb
     ports:
       - "8000:8000"
+    env_file:
+      - ./.env
+    networks:
+      - webnet
 
   fastapidb-pip:
     profiles:
@@ -22,5 +28,48 @@ services:
     volumes:
       - ./app:/app/app
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    depends_on:
+      - pgdb
     ports:
       - "8000:8000"
+    env_file:
+      - ./.env
+    networks:
+      - webnet
+
+  pgdb:
+    container_name: fastapidb-psqlcontainer
+    image: postgres
+    ports:
+      - "5432:5432"
+    # env_file:
+    #   - ./.env
+    environment:
+      POSTGRES_USER: anakin1181
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: fast_api_db
+    volumes:
+      - fastapidb-postgres-data:/var/lib/postgresql/data
+    networks:
+      - webnet
+
+  pgadmin:
+    container_name: fastapidb-pgAdmin
+    image: dpage/pgadmin4
+    depends_on:
+      - pgdb
+    ports:
+      - "5050:80"
+    env_file:
+      - ./.env
+    volumes:
+      - fastapidb-pgAdmin-data:/var/lib/pgadmin
+    networks:
+      - webnet
+
+volumes:
+  fastapidb-postgres-data:
+  fastapidb-pgAdmin-data:
+
+networks:
+  webnet:

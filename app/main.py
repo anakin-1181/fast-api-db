@@ -1,18 +1,45 @@
 from fastapi import FastAPI
+from sqlalchemy.orm import Session
 
-import fast_api_db.utils as utils
+from fast_api_db.crud.item import ItemCRUD
+from fast_api_db.database.connection import SessionLocal
+from fast_api_db.model.model import create_table
 
-# attempt to replace the output of read_message
-# from src.fast_api_db.main import read_message
+# from fast_api_db.model.model import Base, Item
 
 app = FastAPI()
 
 
-@app.get("/")
-def utils_function():
-    return {"message": utils.dummy_function()}
+# Create
+@app.post("/items")
+def create_item(db: Session, item_id: int, item_name: str):
+    item = ItemCRUD.create_item(
+        db=db, item_id=item_id, item_name=item_name
+    )
+    return item
 
 
-@app.post("/abc/")
-def create_item(item: str):
-    return {f"New item {item} added."}
+# Read
+@app.get("/items/{item_id}")
+def get_item(db: Session, item_id: int):
+    item = ItemCRUD.get_item(db=db, item_id=item_id)
+    return item
+
+
+# Update
+# @app.put("/items/{item_id}")
+# def update_item(db: Session, item_id: int, **kwargs):
+#     item = ItemCRUD.update_item(db=db, item_id=item_id, kwargs=kwargs)
+#     return item
+
+
+# Delete
+@app.delete("/items/{item_id}")
+def delete_item(db: Session, item_id: int):
+    item = ItemCRUD.delete_item(db=db, item_id=item_id)
+    return item
+
+
+if __name__ == "__main__":
+    db = SessionLocal()
+    create_table()
