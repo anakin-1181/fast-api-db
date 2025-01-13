@@ -37,16 +37,15 @@ class ItemCRUD:
     # Update
     # potential: two error messages (cannot find item_id) (parameters error)
     @staticmethod
-    def update_item(db: Session, item_id: int, **kwargs):
+    def update_item(db: Session, item_id: int, item_name: str):
         try:
-            updated_item = (
-                db.query(Item)
-                .filter(Item.item_id == item_id)
-                .update(kwargs)
+            db.query(Item).filter(Item.item_id == item_id).update(
+                {"item_name": item_name}
             )
             db.commit()
-            db.refresh(updated_item)
-            return updated_item
+            return (
+                db.query(Item).filter(Item.item_id == item_id).first()
+            )
         except ValueError:
             raise HTTPException(
                 status_code="404",

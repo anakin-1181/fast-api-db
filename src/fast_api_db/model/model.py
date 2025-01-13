@@ -1,11 +1,8 @@
+from pydantic import BaseModel
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
-
-
-def create_table():
-    Base.metadata.create_all()
 
 
 class Item(Base):
@@ -14,3 +11,8 @@ class Item(Base):
         Integer, primary_key=True, nullable=False, unique=True
     )
     item_name = Column(String)
+
+
+class ItemParams(BaseModel):
+    item_id: int
+    item_name: str

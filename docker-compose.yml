@@ -8,6 +8,7 @@ services:
       dockerfile: ./Dockerfile.poetry
     volumes:
       - ./app:/app/app
+      - ./src:/app/src
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     depends_on:
       - pgdb
@@ -27,6 +28,7 @@ services:
       dockerfile: ./Dockerfile.pip
     volumes:
       - ./app:/app/app
+      - ./src:/app/src
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
     depends_on:
       - pgdb
@@ -42,12 +44,10 @@ services:
     image: postgres
     ports:
       - "5432:5432"
-    # env_file:
-    #   - ./.env
     environment:
-      POSTGRES_USER: anakin1181
-      POSTGRES_PASSWORD: 123456
-      POSTGRES_DB: fast_api_db
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - fastapidb-postgres-data:/var/lib/postgresql/data
     networks:
