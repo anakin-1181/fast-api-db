@@ -97,11 +97,11 @@ Then connect to the debug port 5678 using your IDE's remote debugger.
 To stop and remove all containers:
 
 ```bash
-docker compose down
+docker compose --profile poetry/pip down
 ```
 
 To remove all data volumes:
 
 ```bash
-docker compose down -v
+docker compose --profile poetry/pip down -v
 ```
