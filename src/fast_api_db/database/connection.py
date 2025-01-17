@@ -7,7 +7,7 @@ from sqlalchemy.orm import sessionmaker
 from fast_api_db.model.model import Base
 
 # Find .env file
-load_dotenv("app/.env")
+load_dotenv()
 # load server details
 DB_USER = os.getenv("POSTGRES_USER")
 DB_PASSWORD = os.getenv("POSTGRES_PASSWORD")
@@ -24,6 +24,7 @@ URl = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_local}:{DB_PORT}/{DB_NAME}"
 
 
 # Connection
+# Use DB_URL normally, but use URL if you want to run locally
 engine = create_engine(DB_URl, echo=True)
 engine.connect()
 SessionLocal = sessionmaker(bind=engine)
@@ -31,7 +32,3 @@ SessionLocal = sessionmaker(bind=engine)
 
 def create_table() -> None:
     Base.metadata.create_all(bind=engine)
-
-
-if __name__ == "__main__":
-    create_table()
