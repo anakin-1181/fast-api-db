@@ -112,16 +112,16 @@ Access the pgAdmin GUI by going to ` http://localhost:5050`
 
 ### 1. Sign in using the credenitals in .env
 
-![alt text](image.png)
+![alt text](./images/image.png)
 
 ### 2. Connect to the server
 
 1. Click "Add new server"
 2. Name the server using the project name
-   ![alt text](image-1.png)
+   ![alt text](./images/image-1.png)
 3. Use the name of database docker service as host (reference docker-comppose.yml) then sign in using username and password in .env file
-   ![alt text](image-2.png)
+   ![alt text](./images/image-2.png)
 
 ### 3. Use the query tool to manage database
 
-![alt text](image-3.png)
+![alt text](./images/image-3.png)
