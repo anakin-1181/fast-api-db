@@ -106,22 +106,58 @@ To remove all data volumes:
 docker compose --profile poetry/pip down -v
 ```
 
-## GUI using pgAdmin
+## Using pgAdmin Web Interface
 
-Access the pgAdmin GUI by going to ` http://localhost:5050`
+pgAdmin provides a web-based GUI to manage your PostgreSQL database. Access it at `http://localhost:5050`.
 
-### 1. Sign in using the credenitals in .env
+### Login to pgAdmin
 
-![alt text](./images/image.png)
+1. Open your browser and navigate to `http://localhost:5050`
+2. Login using these credentials from your `.env` file:
+   - Email: `PGADMIN_DEFAULT_EMAIL`
+   - Password: `PGADMIN_DEFAULT_PASSWORD`
 
-### 2. Connect to the server
+![pgAdmin login screen](./images/image.png)
 
-1. Click "Add new server"
-2. Name the server using the project name
-   ![alt text](./images/image-1.png)
-3. Use the name of database docker service as host (reference docker-comppose.yml) then sign in using username and password in .env file
-   ![alt text](./images/image-2.png)
+### Connect to Database Server
 
-### 3. Use the query tool to manage database
+1. In the Dashboard, click "Add New Server"
+2. Under "General" tab:
 
-![alt text](./images/image-3.png)
+   - Name: Enter any name (e.g., "FastAPI-DB")
+     ![Server creation - General tab](./images/image-1.png)
+
+3. Under "Connection" tab:
+   - Host: `pgdb` (Docker service name from docker-compose.yml)
+   - Port: `5432`
+   - Maintenance database: `postgres`
+   - Username: `POSTGRES_USER` from .env
+   - Password: `POSTGRES_PASSWORD` from .env
+     ![Server creation - Connection tab](./images/image-2.png)
+
+### Working with Database
+
+1. Navigate through the left sidebar:
+
+```
+Servers └── Your Server └── Databases └── Your Database └── Schemas
+```
+
+2. Open Query Tool:
+
+- Right-click your database
+- Select "Query Tool"
+- Write and execute SQL queries
+  ![Query Tool Interface](./images/image-3.png)
+
+### Troubleshooting
+
+- If connection fails, ensure Docker containers are running:
+  ```bash
+  docker ps -a
+  ```
+- Check if database service is healthy:
+  ```
+  docker compose logs db
+  ```
+- Verify your `.env` credentials match between pgAdmin and PostgreSQL services
