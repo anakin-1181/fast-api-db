@@ -3,3 +3,7 @@ pre-commit
 uvicorn
 gunicorn
 debugpy
+sqlalchemy
+python-dotenv
+psycopg2-binary
+pydantic

@@ -14,9 +14,10 @@ ENV POETRY_VIRTUALENVS_CREATE=false \
 WORKDIR /app
 
 # Preserve structure for the last CMD statement
-COPY README.md pyproject.toml poetry.lock /app/
+COPY README.md pyproject.toml poetry.lock .env /app/
 COPY src /app/src
 COPY app /app/app
+
 
 # OR just COPY . .
 
