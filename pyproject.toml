@@ -9,6 +9,13 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 fastapi = "^0.115.6"
+gunicorn = "^23.0.0"
+uvicorn = "^0.32.1"
+debugpy = "^1.8.11"
+sqlalchemy = "^2.0.34"
+python-dotenv = "^0.21.0"
+psycopg2-binary = "^2.9.10"
+pydantic = "^2.10.5"
 
 
 [build-system]

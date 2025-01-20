@@ -1,19 +1,22 @@
 {
+  "version": "0.2.0",
   "configurations": [
     {
-      "name": "Docker: Python - Fastapi",
-      "type": "docker",
-      "request": "launch",
+      "name": "Python: Remote Attach",
+      "type": "debugpy",
+      "request": "attach",
       "preLaunchTask": "docker-run: debug",
-      "python": {
-        "pathMappings": [
-          {
-            "localRoot": "${workspaceFolder}",
-            "remoteRoot": "/app"
-          }
-        ],
-        "projectType": "fastapi"
+      "connect": {
+        "host": "localhost",
+        "port": 5678
+      },
+      "pathMappings": [{
+        "localRoot": "${workspaceFolder}",
+        "remoteRoot": "/app"
       }
+      ]
+
+
     }
   ]
 }
